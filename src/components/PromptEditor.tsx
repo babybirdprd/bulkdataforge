@@ -15,6 +15,7 @@ interface PromptEditorProps {
 export const PromptEditor = ({ value, onChange, onGenerate, isLoading }: PromptEditorProps) => {
   const { toast } = useToast();
   const promptCount = value.split("\n").filter(line => line.trim()).length;
+  const charCount = value.length;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(value);
@@ -25,11 +26,11 @@ export const PromptEditor = ({ value, onChange, onGenerate, isLoading }: PromptE
   };
 
   return (
-    <Card className="p-4 h-full flex flex-col bg-card border-border">
+    <Card className="p-4 h-full flex flex-col bg-[#2A2F3C] border-gray-700">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold text-foreground">Prompts</h2>
-        <div className="text-sm text-muted-foreground">
-          {promptCount} prompt{promptCount !== 1 ? "s" : ""}
+        <h2 className="text-lg font-semibold text-gray-200">Prompts</h2>
+        <div className="text-sm text-gray-400">
+          {promptCount} prompt{promptCount !== 1 ? "s" : ""} • {charCount} characters
         </div>
       </div>
       
@@ -37,7 +38,7 @@ export const PromptEditor = ({ value, onChange, onGenerate, isLoading }: PromptE
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Enter your prompts here, one per line..."
-        className="flex-1 font-mono text-sm min-h-[300px] mb-4 resize-none bg-background text-foreground"
+        className="flex-1 font-mono text-sm min-h-[300px] mb-4 resize-none bg-[#1A1F2C] border-gray-700 text-gray-200 placeholder:text-gray-500"
       />
       
       <div className="flex justify-between gap-2">
@@ -45,7 +46,7 @@ export const PromptEditor = ({ value, onChange, onGenerate, isLoading }: PromptE
           variant="outline"
           onClick={handleCopy}
           disabled={!value.trim()}
-          className="gap-2 bg-background hover:bg-accent"
+          className="gap-2 bg-[#1A1F2C] hover:bg-[#2A2F3C] border-gray-700 text-gray-200"
         >
           <Copy className="h-4 w-4" />
           Copy
@@ -53,7 +54,7 @@ export const PromptEditor = ({ value, onChange, onGenerate, isLoading }: PromptE
         <Button
           onClick={onGenerate}
           disabled={isLoading || !value.trim()}
-          className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2"
+          className="bg-blue-600 hover:bg-blue-700 text-white gap-2"
         >
           {isLoading ? (
             <>

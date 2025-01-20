@@ -22,11 +22,11 @@ export const ResponseViewer = ({ responses, onDownload }: ResponseViewerProps) =
   };
 
   return (
-    <Card className="p-4 h-full flex flex-col bg-card border-border">
+    <Card className="p-4 h-full flex flex-col bg-[#2A2F3C] border-gray-700">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold text-foreground">Responses</h2>
+        <h2 className="text-lg font-semibold text-gray-200">Responses</h2>
         {responses.length > 0 && (
-          <Button variant="outline" onClick={onDownload} className="gap-2 bg-background hover:bg-accent">
+          <Button variant="outline" onClick={onDownload} className="gap-2 bg-[#1A1F2C] hover:bg-[#2A2F3C] border-gray-700 text-gray-200">
             <Download className="h-4 w-4" />
             Download JSON
           </Button>
@@ -35,18 +35,18 @@ export const ResponseViewer = ({ responses, onDownload }: ResponseViewerProps) =
 
       <ScrollArea className="flex-1">
         {responses.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-muted-foreground">
+          <div className="h-full flex items-center justify-center text-gray-400">
             Generated responses will appear here
           </div>
         ) : (
           <div className="space-y-4">
             {responses.map((response, index) => (
-              <Card key={index} className="p-4 relative group bg-background border-border">
-                <pre className="font-mono text-sm whitespace-pre-wrap text-foreground">{response}</pre>
+              <Card key={index} className="p-4 relative group bg-[#1A1F2C] border-gray-700">
+                <pre className="font-mono text-sm whitespace-pre-wrap text-gray-200">{response}</pre>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity gap-2"
+                  className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity gap-2 hover:bg-[#2A2F3C] text-gray-200"
                   onClick={() => handleCopyResponse(response)}
                 >
                   <Copy className="h-4 w-4" />
