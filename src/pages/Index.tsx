@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Settings, Download, Copy, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Settings } from "lucide-react";
 import { PromptEditor } from "@/components/PromptEditor";
 import { ResponseViewer } from "@/components/ResponseViewer";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,11 @@ const Index = () => {
   const [apiKey, setApiKey] = useState(() => localStorage.getItem("openai_api_key") || "");
   const [baseUrl, setBaseUrl] = useState(() => localStorage.getItem("openai_base_url") || "");
   const { toast } = useToast();
+
+  // Force dark mode
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+  }, []);
 
   const handleGenerate = async () => {
     if (!apiKey) {
@@ -91,7 +96,7 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground">
       <div className="container py-8 max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 text-transparent bg-clip-text">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 text-transparent bg-clip-text">
             Bulk Data Generator
           </h1>
           

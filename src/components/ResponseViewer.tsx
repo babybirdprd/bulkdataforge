@@ -22,11 +22,11 @@ export const ResponseViewer = ({ responses, onDownload }: ResponseViewerProps) =
   };
 
   return (
-    <Card className="p-4 h-full flex flex-col bg-card">
+    <Card className="p-4 h-full flex flex-col bg-card border-border">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-semibold">Responses</h2>
+        <h2 className="text-lg font-semibold text-foreground">Responses</h2>
         {responses.length > 0 && (
-          <Button variant="outline" onClick={onDownload} className="gap-2">
+          <Button variant="outline" onClick={onDownload} className="gap-2 bg-background hover:bg-accent">
             <Download className="h-4 w-4" />
             Download JSON
           </Button>
@@ -41,8 +41,8 @@ export const ResponseViewer = ({ responses, onDownload }: ResponseViewerProps) =
         ) : (
           <div className="space-y-4">
             {responses.map((response, index) => (
-              <Card key={index} className="p-4 relative group bg-background">
-                <pre className="font-mono text-sm whitespace-pre-wrap">{response}</pre>
+              <Card key={index} className="p-4 relative group bg-background border-border">
+                <pre className="font-mono text-sm whitespace-pre-wrap text-foreground">{response}</pre>
                 <Button
                   variant="ghost"
                   size="sm"
