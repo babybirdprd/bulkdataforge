@@ -4,6 +4,7 @@ import { PromptEditor } from "@/components/PromptEditor";
 import { ResponseViewer } from "@/components/ResponseViewer";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -11,14 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const Index = () => {
@@ -95,31 +88,32 @@ const Index = () => {
   };
 
   return (
-    <div className="container py-8 min-h-screen bg-background">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="container py-8 max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 text-transparent bg-clip-text">
             Bulk Data Generator
           </h1>
           
           <div className="flex items-center gap-4">
-            <Select value={model} onValueChange={setModel}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select model" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="gpt-3.5-turbo">GPT-3.5 Turbo</SelectItem>
-                <SelectItem value="gpt-4">GPT-4</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="flex items-center gap-2">
+              <Label htmlFor="model" className="text-sm font-medium">Model:</Label>
+              <Input
+                id="model"
+                value={model}
+                onChange={(e) => setModel(e.target.value)}
+                className="w-[200px] bg-background border-input"
+                placeholder="Enter model name..."
+              />
+            </div>
 
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" className="bg-background hover:bg-accent">
                   <Settings className="h-4 w-4" />
                 </Button>
               </DialogTrigger>
-              <DialogContent>
+              <DialogContent className="bg-background border-border">
                 <DialogHeader>
                   <DialogTitle>OpenAI Settings</DialogTitle>
                 </DialogHeader>
@@ -132,6 +126,7 @@ const Index = () => {
                       placeholder="sk-..."
                       value={apiKey}
                       onChange={(e) => setApiKey(e.target.value)}
+                      className="bg-background border-input"
                     />
                   </div>
                   <div className="space-y-2">
@@ -141,10 +136,24 @@ const Index = () => {
                       placeholder="https://api.openai.com/v1"
                       value={baseUrl}
                       onChange={(e) => setBaseUrl(e.target.value)}
+                      className="bg-background border-input"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="temperature">Temperature</Label>
+                    <Input
+                      id="temperature"
+                      type="number"
+                      min="0"
+                      max="2"
+                      step="0.1"
+                      value={temperature}
+                      onChange={(e) => setTemperature(e.target.value)}
+                      className="bg-background border-input"
                     />
                   </div>
                   <Button 
-                    className="w-full"
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                     onClick={() => saveSettings(apiKey, baseUrl)}
                   >
                     Save Settings
