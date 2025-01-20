@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import { Copy, Loader2, Send } from "lucide-react";
 
 interface PromptEditorProps {
   value: string;
@@ -24,7 +25,7 @@ export const PromptEditor = ({ value, onChange, onGenerate, isLoading }: PromptE
   };
 
   return (
-    <Card className="p-4 h-full flex flex-col">
+    <Card className="p-4 h-full flex flex-col bg-card">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold">Prompts</h2>
         <div className="text-sm text-muted-foreground">
@@ -36,7 +37,7 @@ export const PromptEditor = ({ value, onChange, onGenerate, isLoading }: PromptE
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Enter your prompts here, one per line..."
-        className="flex-1 font-mono text-sm min-h-[300px] mb-4 resize-none"
+        className="flex-1 font-mono text-sm min-h-[300px] mb-4 resize-none bg-background"
       />
       
       <div className="flex justify-between gap-2">
@@ -44,15 +45,27 @@ export const PromptEditor = ({ value, onChange, onGenerate, isLoading }: PromptE
           variant="outline"
           onClick={handleCopy}
           disabled={!value.trim()}
+          className="gap-2"
         >
+          <Copy className="h-4 w-4" />
           Copy
         </Button>
         <Button
           onClick={onGenerate}
           disabled={isLoading || !value.trim()}
-          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+          className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 gap-2"
         >
-          {isLoading ? "Generating..." : "Generate"}
+          {isLoading ? (
+            <>
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Generating...
+            </>
+          ) : (
+            <>
+              <Send className="h-4 w-4" />
+              Generate
+            </>
+          )}
         </Button>
       </div>
     </Card>
